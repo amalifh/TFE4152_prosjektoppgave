@@ -1,0 +1,119 @@
+#! /opt/homebrew/Cellar/icarus-verilog/12.0/bin/vvp
+:ivl_version "12.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision - 12;
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/system.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/vhdl_sys.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/vhdl_textio.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/v2005_math.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/va_math.vpi";
+S_0x11e007420 .scope module, "bitcell_tb" "bitcell_tb" 2 5;
+ .timescale -9 -12;
+v0x11e018440_0 .var "data", 0 0;
+v0x11e0184d0_0 .net "out", 0 0, L_0x11e0192f0;  1 drivers
+v0x11e018560_0 .var "rw", 0 0;
+v0x11e0185f0_0 .var "sel", 0 0;
+S_0x11e007590 .scope module, "uut" "bitcell" 2 16, 3 1 0, S_0x11e007420;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "data";
+    .port_info 1 /INPUT 1 "sel";
+    .port_info 2 /INPUT 1 "rw";
+    .port_info 3 /OUTPUT 1 "out";
+L_0x11e0186a0 .functor AND 1, v0x11e018440_0, v0x11e0185f0_0, C4<1>, C4<1>;
+L_0x11e0187d0 .functor AND 1, L_0x11e0186a0, v0x11e018560_0, C4<1>, C4<1>;
+L_0x11e0188c0 .functor NOT 1, L_0x11e0187d0, C4<0>, C4<0>, C4<0>;
+L_0x11e018970 .functor AND 1, L_0x11e0188c0, v0x11e0185f0_0, C4<1>, C4<1>;
+L_0x11e018a20 .functor AND 1, L_0x11e018970, v0x11e018560_0, C4<1>, C4<1>;
+L_0x11e018b20 .functor NOT 1, L_0x11e018a20, C4<0>, C4<0>, C4<0>;
+L_0x11e018bd0 .functor AND 1, L_0x11e0188c0, L_0x11e018eb0, C4<1>, C4<1>;
+L_0x11e018ca0 .functor NOT 1, L_0x11e018bd0, C4<0>, C4<0>, C4<0>;
+L_0x11e018d70 .functor AND 1, L_0x11e018b20, L_0x11e018ca0, C4<1>, C4<1>;
+L_0x11e018eb0 .functor NOT 1, L_0x11e018d70, C4<0>, C4<0>, C4<0>;
+L_0x11e018f60 .functor NOT 1, v0x11e018560_0, C4<0>, C4<0>, C4<0>;
+L_0x11e0190b0 .functor AND 1, L_0x11e018ca0, L_0x11e018f60, C4<1>, C4<1>;
+L_0x11e019120 .functor AND 1, L_0x11e0190b0, v0x11e0185f0_0, C4<1>, C4<1>;
+L_0x11e019280 .functor NOT 1, L_0x11e019120, C4<0>, C4<0>, C4<0>;
+L_0x11e0192f0 .functor NOT 1, L_0x11e019280, C4<0>, C4<0>, C4<0>;
+v0x11e007760_0 .net *"_ivl_0", 0 0, L_0x11e0186a0;  1 drivers
+v0x11e017760_0 .net *"_ivl_12", 0 0, L_0x11e018bd0;  1 drivers
+v0x11e017810_0 .net *"_ivl_16", 0 0, L_0x11e018d70;  1 drivers
+v0x11e0178d0_0 .net *"_ivl_2", 0 0, L_0x11e0187d0;  1 drivers
+v0x11e017980_0 .net *"_ivl_22", 0 0, L_0x11e0190b0;  1 drivers
+v0x11e017a70_0 .net *"_ivl_24", 0 0, L_0x11e019120;  1 drivers
+v0x11e017b20_0 .net *"_ivl_6", 0 0, L_0x11e018970;  1 drivers
+v0x11e017bd0_0 .net *"_ivl_8", 0 0, L_0x11e018a20;  1 drivers
+v0x11e017c80_0 .net "data", 0 0, v0x11e018440_0;  1 drivers
+v0x11e017d90_0 .net "nand1_out", 0 0, L_0x11e0188c0;  1 drivers
+v0x11e017e20_0 .net "nand2_out", 0 0, L_0x11e018b20;  1 drivers
+v0x11e017ec0_0 .net "nand3_out", 0 0, L_0x11e019280;  1 drivers
+v0x11e017f60_0 .net "out", 0 0, L_0x11e0192f0;  alias, 1 drivers
+v0x11e018000_0 .net "outNot", 0 0, L_0x11e018f60;  1 drivers
+v0x11e0180a0_0 .net "rw", 0 0, v0x11e018560_0;  1 drivers
+v0x11e018140_0 .net "sel", 0 0, v0x11e0185f0_0;  1 drivers
+v0x11e0181e0_0 .net "sr_out1", 0 0, L_0x11e018ca0;  1 drivers
+v0x11e018370_0 .net "sr_out2", 0 0, L_0x11e018eb0;  1 drivers
+    .scope S_0x11e007420;
+T_0 ;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x11e018440_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x11e0185f0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x11e018560_0, 0, 1;
+    %delay 20000, 0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x11e0185f0_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x11e018560_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x11e018440_0, 0, 1;
+    %delay 20000, 0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x11e0185f0_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x11e018560_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x11e018440_0, 0, 1;
+    %delay 20000, 0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x11e0185f0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x11e018560_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x11e018440_0, 0, 1;
+    %delay 20000, 0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x11e0185f0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x11e018560_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x11e018440_0, 0, 1;
+    %delay 20000, 0;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x11e0185f0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x11e018560_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x11e018440_0, 0, 1;
+    %delay 20000, 0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x11e0185f0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x11e018560_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x11e018440_0, 0, 1;
+    %delay 20000, 0;
+    %vpi_call 2 44 "$finish" {0 0 0};
+    %end;
+    .thread T_0;
+    .scope S_0x11e007420;
+T_1 ;
+    %vpi_call 2 49 "$monitor", "At time %0dns: sel = %b, rw = %b, data = %b, out = %b", $time, v0x11e0185f0_0, v0x11e018560_0, v0x11e018440_0, v0x11e0184d0_0 {0 0 0};
+    %end;
+    .thread T_1;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "bitcell_tb.v";
+    "./bitcell.v";
