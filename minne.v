@@ -114,22 +114,22 @@ endmodule
 // implementert i bit'en
 
 module memory8x8 (
-    input wire [2:0] address,  // 3-bit address to select one of the 8 words
-    input wire [7:0] data_in,  // 8-bit data input
-    input wire select,         // Select signal for the memory
-    input wire rw,             // Read/Write control (1 = read, 0 = write)
-    output wire [7:0] data_out // 8-bit data output
+    input wire [2:0] address,  
+    input wire [7:0] data_in,  
+    input wire select,         
+    input wire rw,             
+    output wire [7:0] data_out 
 );
 
-    // Internal wires for word select signals
+    // Indre ledninger
     wire [7:0] word_select;
 
-    // 3-to-8 decoder to select one of the 8 words based on the address
+    // Oppretter 3-to-8 decoderen vi lagde ovenfor
     decoder3to8 decoder (
         .A2(address[2]),
         .A1(address[1]),
         .A0(address[0]),
-        .Select(select),    // Enable decoder output only when select is high
+        .Select(select),    
         .Z0(word_select[0]),
         .Z1(word_select[1]),
         .Z2(word_select[2]),
@@ -140,7 +140,7 @@ module memory8x8 (
         .Z7(word_select[7])
     );
 
-    // Instantiate 8 words (each with 8 bitcells)
+    // Lager 8 ord, alle bygd opp og 8 bitceller
     word8bit word0 (
         .data_in(data_in),
         .sel(word_select[0]),
