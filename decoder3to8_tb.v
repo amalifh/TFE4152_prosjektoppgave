@@ -3,17 +3,17 @@
 
 module decoder3to8_tb;
 
-    reg A2, A1, A0;
-    reg Select;
+    reg adr2, adr1, adr0;
+    reg select;
 
     wire Z0, Z1, Z2, Z3, Z4, Z5, Z6, Z7;
 
     // Instantiate the decoder3to8 module
     decoder3to8 uut (
-        .A2(A2),
-        .A1(A1),
-        .A0(A0),
-        .Select(Select),
+        .adr2(adr2),
+        .adr1(adr1),
+        .adr0(adr0),
+        .select(select),
         .Z0(Z0),
         .Z1(Z1),
         .Z2(Z2),
@@ -26,52 +26,52 @@ module decoder3to8_tb;
 
     // Test sequence
     initial begin
-        $display("Time\t Select A2 A1 A0 | Z0 Z1 Z2 Z3 Z4 Z5 Z6 Z7");
+        $display("Time\t select adr2 adr1 adr0 | Z0 Z1 Z2 Z3 Z4 Z5 Z6 Z7");
         $display("------------------------------------------------");
         
-        // Test 1: Select is low, no outputs should be active
-        Select = 0;
-        A2 = 0; A1 = 0; A0 = 0;
+        // Test 1: select is low, no outputs should be active
+        select = 0;
+        adr2 = 0; adr1 = 0; adr0 = 0;
         #10;
         $display("Test 1: sel er lav, ingen outputs skal være aktive");
         $display("%0dns\t   %b     %b  %b  %b  | %b  %b  %b  %b  %b  %b  %b  %b",
-                 $time, Select, A2, A1, A0, Z0, Z1, Z2, Z3, Z4, Z5, Z6, Z7);
+                 $time, select, adr2, adr1, adr0, Z0, Z1, Z2, Z3, Z4, Z5, Z6, Z7);
 
-        // Test 2: Count from 0 to 7 with Select high
-        Select = 1;
+        // Test 2: Count from 0 to 7 with select high
+        select = 1;
         $display("Test 1: sel er høy, vanlig 3 til 8 decoder");
         // Each address combination
-        A2 = 0; A1 = 0; A0 = 0; #10;
+        adr2 = 0; adr1 = 0; adr0 = 0; #10;
         $display("%0dns\t   %b     %b  %b  %b  | %b  %b  %b  %b  %b  %b  %b  %b",
-                 $time, Select, A2, A1, A0, Z0, Z1, Z2, Z3, Z4, Z5, Z6, Z7);
+                 $time, select, adr2, adr1, adr0, Z0, Z1, Z2, Z3, Z4, Z5, Z6, Z7);
 
-        A2 = 0; A1 = 0; A0 = 1; #10;
+        adr2 = 0; adr1 = 0; adr0 = 1; #10;
         $display("%0dns\t   %b     %b  %b  %b  | %b  %b  %b  %b  %b  %b  %b  %b",
-                 $time, Select, A2, A1, A0, Z0, Z1, Z2, Z3, Z4, Z5, Z6, Z7);
+                 $time, select, adr2, adr1, adr0, Z0, Z1, Z2, Z3, Z4, Z5, Z6, Z7);
 
-        A2 = 0; A1 = 1; A0 = 0; #10;
+        adr2 = 0; adr1 = 1; adr0 = 0; #10;
         $display("%0dns\t   %b     %b  %b  %b  | %b  %b  %b  %b  %b  %b  %b  %b",
-                 $time, Select, A2, A1, A0, Z0, Z1, Z2, Z3, Z4, Z5, Z6, Z7);
+                 $time, select, adr2, adr1, adr0, Z0, Z1, Z2, Z3, Z4, Z5, Z6, Z7);
 
-        A2 = 0; A1 = 1; A0 = 1; #10;
+        adr2 = 0; adr1 = 1; adr0 = 1; #10;
         $display("%0dns\t   %b     %b  %b  %b  | %b  %b  %b  %b  %b  %b  %b  %b",
-                 $time, Select, A2, A1, A0, Z0, Z1, Z2, Z3, Z4, Z5, Z6, Z7);
+                 $time, select, adr2, adr1, adr0, Z0, Z1, Z2, Z3, Z4, Z5, Z6, Z7);
 
-        A2 = 1; A1 = 0; A0 = 0; #10;
+        adr2 = 1; adr1 = 0; adr0 = 0; #10;
         $display("%0dns\t   %b     %b  %b  %b  | %b  %b  %b  %b  %b  %b  %b  %b",
-                 $time, Select, A2, A1, A0, Z0, Z1, Z2, Z3, Z4, Z5, Z6, Z7);
+                 $time, select, adr2, adr1, adr0, Z0, Z1, Z2, Z3, Z4, Z5, Z6, Z7);
 
-        A2 = 1; A1 = 0; A0 = 1; #10;
+        adr2 = 1; adr1 = 0; adr0 = 1; #10;
         $display("%0dns\t   %b     %b  %b  %b  | %b  %b  %b  %b  %b  %b  %b  %b",
-                 $time, Select, A2, A1, A0, Z0, Z1, Z2, Z3, Z4, Z5, Z6, Z7);
+                 $time, select, adr2, adr1, adr0, Z0, Z1, Z2, Z3, Z4, Z5, Z6, Z7);
 
-        A2 = 1; A1 = 1; A0 = 0; #10;
+        adr2 = 1; adr1 = 1; adr0 = 0; #10;
         $display("%0dns\t   %b     %b  %b  %b  | %b  %b  %b  %b  %b  %b  %b  %b",
-                 $time, Select, A2, A1, A0, Z0, Z1, Z2, Z3, Z4, Z5, Z6, Z7);
+                 $time, select, adr2, adr1, adr0, Z0, Z1, Z2, Z3, Z4, Z5, Z6, Z7);
 
-        A2 = 1; A1 = 1; A0 = 1; #10;
+        adr2 = 1; adr1 = 1; adr0 = 1; #10;
         $display("%0dns\t   %b     %b  %b  %b  | %b  %b  %b  %b  %b  %b  %b  %b",
-                 $time, Select, A2, A1, A0, Z0, Z1, Z2, Z3, Z4, Z5, Z6, Z7);
+                 $time, select, adr2, adr1, adr0, Z0, Z1, Z2, Z3, Z4, Z5, Z6, Z7);
 
         // End simulation
         $finish;

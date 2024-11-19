@@ -17,7 +17,7 @@ module memory8x8_tb;
     memory8x8 uut (
         .address(address),
         .data_in(data_in),
-        .select(select), ß≈
+        .select(select), 
         .rw(rw),
         .data_out(data_out)
     );

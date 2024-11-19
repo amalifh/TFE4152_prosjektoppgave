@@ -1,0 +1,244 @@
+#! /opt/homebrew/Cellar/icarus-verilog/12.0/bin/vvp
+:ivl_version "12.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision - 12;
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/system.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/vhdl_sys.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/vhdl_textio.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/v2005_math.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/va_math.vpi";
+S_0x11d011f30 .scope module, "FSM_tb" "FSM_tb" 2 5;
+ .timescale -9 -12;
+v0x11d029150_0 .net "A_FSM", 0 0, v0x11d028030_0;  1 drivers
+v0x11d0291f0_0 .net "B_FSM", 0 0, v0x11d028490_0;  1 drivers
+v0x11d0292d0_0 .var "clk", 0 0;
+v0x11d029360_0 .var "op", 0 0;
+v0x11d0293f0_0 .net "rw", 0 0, L_0x11d029f80;  1 drivers
+v0x11d0294c0_0 .var "selFSM", 0 0;
+v0x11d029570_0 .net "valid", 0 0, L_0x11d029e90;  1 drivers
+S_0x11d00a050 .scope task, "display_state" "display_state" 2 34, 2 34 0, S_0x11d011f30;
+ .timescale -9 -12;
+TD_FSM_tb.display_state ;
+    %vpi_call 2 36 "$display", "Time: %0dns | clk: %b | op: %b, selFSM: %b | valid: %b rw: %b | A_FSM: %b, B_FSM: %b", $time, v0x11d0292d0_0, v0x11d029360_0, v0x11d0294c0_0, v0x11d029570_0, v0x11d0293f0_0, v0x11d029150_0, v0x11d0291f0_0 {0 0 0};
+    %end;
+S_0x11d00a1c0 .scope module, "uut" "FSM" 2 19, 3 3 0, S_0x11d011f30;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "op";
+    .port_info 1 /INPUT 1 "selFSM";
+    .port_info 2 /INPUT 1 "clk";
+    .port_info 3 /OUTPUT 1 "rw";
+    .port_info 4 /OUTPUT 1 "valid";
+    .port_info 5 /OUTPUT 1 "A_FSM";
+    .port_info 6 /OUTPUT 1 "B_FSM";
+L_0x11d029600 .functor NOT 1, v0x11d0294c0_0, C4<0>, C4<0>, C4<0>;
+L_0x11d0296d0 .functor NOT 1, v0x11d028490_0, C4<0>, C4<0>, C4<0>;
+L_0x11d029740 .functor NOT 1, v0x11d028030_0, C4<0>, C4<0>, C4<0>;
+L_0x11d0297f0 .functor AND 1, L_0x11d029740, L_0x11d0296d0, C4<1>, C4<1>;
+L_0x11d029920 .functor AND 1, v0x11d0294c0_0, v0x11d029360_0, C4<1>, C4<1>;
+L_0x11d029a00 .functor AND 1, L_0x11d0296d0, L_0x11d029600, C4<1>, C4<1>;
+L_0x11d029ab0 .functor OR 1, L_0x11d0297f0, L_0x11d029920, L_0x11d029a00, C4<0>;
+L_0x11d029c60 .functor XNOR 1, v0x11d028030_0, v0x11d029360_0, C4<0>, C4<0>;
+L_0x11d029d50 .functor AND 1, v0x11d0294c0_0, L_0x11d029c60, C4<1>, C4<1>;
+L_0x11d029e90 .functor BUF 1, v0x11d028490_0, C4<0>, C4<0>, C4<0>;
+L_0x11d029f80 .functor XNOR 1, v0x11d028030_0, v0x11d028490_0, C4<0>, C4<0>;
+v0x11d028630_0 .net "A_FSM", 0 0, v0x11d028030_0;  alias, 1 drivers
+v0x11d0286d0_0 .net "AandnotB", 0 0, L_0x11d0297f0;  1 drivers
+v0x11d028760_0 .net "Aplus", 0 0, L_0x11d029ab0;  1 drivers
+v0x11d028830_0 .net "B_FSM", 0 0, v0x11d028490_0;  alias, 1 drivers
+v0x11d0288e0_0 .net "Bplus", 0 0, L_0x11d029d50;  1 drivers
+v0x11d0289b0_0 .net "clk", 0 0, v0x11d0292d0_0;  1 drivers
+v0x11d028a80_0 .net "notA", 0 0, L_0x11d029740;  1 drivers
+v0x11d028b10_0 .net "notB", 0 0, L_0x11d0296d0;  1 drivers
+v0x11d028ba0_0 .net "notBAndNotSel", 0 0, L_0x11d029a00;  1 drivers
+v0x11d028cb0_0 .net "notSel", 0 0, L_0x11d029600;  1 drivers
+v0x11d028d40_0 .net "op", 0 0, v0x11d029360_0;  1 drivers
+v0x11d028dd0_0 .net "rw", 0 0, L_0x11d029f80;  alias, 1 drivers
+v0x11d028e60_0 .net "selAndOp", 0 0, L_0x11d029920;  1 drivers
+v0x11d028f00_0 .net "selFSM", 0 0, v0x11d0294c0_0;  1 drivers
+v0x11d028fa0_0 .net "valid", 0 0, L_0x11d029e90;  alias, 1 drivers
+v0x11d029040_0 .net "xnorAop", 0 0, L_0x11d029c60;  1 drivers
+S_0x11d0063e0 .scope module, "Astate" "D_flip_flop" 3 38, 4 1 0, S_0x11d00a1c0;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "D";
+    .port_info 1 /INPUT 1 "clk";
+    .port_info 2 /OUTPUT 1 "Q";
+v0x11d011cd0_0 .net "D", 0 0, L_0x11d029ab0;  alias, 1 drivers
+v0x11d028030_0 .var "Q", 0 0;
+v0x11d0280d0_0 .net "clk", 0 0, v0x11d0292d0_0;  alias, 1 drivers
+E_0x11d00a740 .event posedge, v0x11d0280d0_0;
+S_0x11d0281d0 .scope module, "Bstate" "D_flip_flop" 3 44, 4 1 0, S_0x11d00a1c0;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "D";
+    .port_info 1 /INPUT 1 "clk";
+    .port_info 2 /OUTPUT 1 "Q";
+v0x11d0283f0_0 .net "D", 0 0, L_0x11d029d50;  alias, 1 drivers
+v0x11d028490_0 .var "Q", 0 0;
+v0x11d028530_0 .net "clk", 0 0, v0x11d0292d0_0;  alias, 1 drivers
+    .scope S_0x11d0063e0;
+T_1 ;
+    %wait E_0x11d00a740;
+    %load/vec4 v0x11d011cd0_0;
+    %assign/vec4 v0x11d028030_0, 0;
+    %jmp T_1;
+    .thread T_1;
+    .scope S_0x11d0281d0;
+T_2 ;
+    %wait E_0x11d00a740;
+    %load/vec4 v0x11d0283f0_0;
+    %assign/vec4 v0x11d028490_0, 0;
+    %jmp T_2;
+    .thread T_2;
+    .scope S_0x11d011f30;
+T_3 ;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x11d0292d0_0, 0, 1;
+    %end;
+    .thread T_3;
+    .scope S_0x11d011f30;
+T_4 ;
+    %delay 5000, 0;
+    %load/vec4 v0x11d0292d0_0;
+    %inv;
+    %store/vec4 v0x11d0292d0_0, 0, 1;
+    %jmp T_4;
+    .thread T_4;
+    .scope S_0x11d011f30;
+T_5 ;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x11d029360_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x11d0294c0_0, 0, 1;
+    %delay 20000, 0;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x11d029360_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x11d0294c0_0, 0, 1;
+    %vpi_call 2 47 "$display", "\012IDLE til IDLE \012Forventet state lk: -------------------------------------| A_FSM: 1, B_FSM: 0" {0 0 0};
+    %delay 5000, 0;
+    %fork TD_FSM_tb.display_state, S_0x11d00a050;
+    %join;
+    %delay 5000, 0;
+    %fork TD_FSM_tb.display_state, S_0x11d00a050;
+    %join;
+    %delay 5000, 0;
+    %fork TD_FSM_tb.display_state, S_0x11d00a050;
+    %join;
+    %delay 5000, 0;
+    %fork TD_FSM_tb.display_state, S_0x11d00a050;
+    %join;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x11d029360_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x11d0294c0_0, 0, 1;
+    %vpi_call 2 54 "$display", "\012IDLE til WRITE \012Forventet state lk: -------------------------------------| A_FSM: 1, B_FSM: 1" {0 0 0};
+    %delay 5000, 0;
+    %fork TD_FSM_tb.display_state, S_0x11d00a050;
+    %join;
+    %delay 5000, 0;
+    %fork TD_FSM_tb.display_state, S_0x11d00a050;
+    %join;
+    %delay 5000, 0;
+    %fork TD_FSM_tb.display_state, S_0x11d00a050;
+    %join;
+    %delay 5000, 0;
+    %fork TD_FSM_tb.display_state, S_0x11d00a050;
+    %join;
+    %vpi_call 2 61 "$display", "\012WRITE til STABLE til READ \012Forventet state lk: ----------------------------------| A_FSM: 0, B_FSM: 0 s\303\245 A_FSM: 0, B_FSM: 1 " {0 0 0};
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x11d029360_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x11d0294c0_0, 0, 1;
+    %delay 5000, 0;
+    %fork TD_FSM_tb.display_state, S_0x11d00a050;
+    %join;
+    %delay 5000, 0;
+    %fork TD_FSM_tb.display_state, S_0x11d00a050;
+    %join;
+    %delay 5000, 0;
+    %fork TD_FSM_tb.display_state, S_0x11d00a050;
+    %join;
+    %delay 5000, 0;
+    %fork TD_FSM_tb.display_state, S_0x11d00a050;
+    %join;
+    %delay 5000, 0;
+    %fork TD_FSM_tb.display_state, S_0x11d00a050;
+    %join;
+    %delay 5000, 0;
+    %fork TD_FSM_tb.display_state, S_0x11d00a050;
+    %join;
+    %delay 5000, 0;
+    %fork TD_FSM_tb.display_state, S_0x11d00a050;
+    %join;
+    %vpi_call 2 71 "$display", "\012READ til IDLE \012Forventet state lk: -------------------------------------| A_FSM: 1, B_FSM: 0" {0 0 0};
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x11d029360_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x11d0294c0_0, 0, 1;
+    %delay 5000, 0;
+    %fork TD_FSM_tb.display_state, S_0x11d00a050;
+    %join;
+    %delay 5000, 0;
+    %fork TD_FSM_tb.display_state, S_0x11d00a050;
+    %join;
+    %delay 5000, 0;
+    %fork TD_FSM_tb.display_state, S_0x11d00a050;
+    %join;
+    %delay 5000, 0;
+    %fork TD_FSM_tb.display_state, S_0x11d00a050;
+    %join;
+    %vpi_call 2 78 "$display", "\012 IDLE til READ \012Forventet state lk: -------------------------------------| A_FSM: 0, B_FSM: 1" {0 0 0};
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x11d029360_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x11d0294c0_0, 0, 1;
+    %delay 5000, 0;
+    %fork TD_FSM_tb.display_state, S_0x11d00a050;
+    %join;
+    %delay 5000, 0;
+    %fork TD_FSM_tb.display_state, S_0x11d00a050;
+    %join;
+    %delay 5000, 0;
+    %fork TD_FSM_tb.display_state, S_0x11d00a050;
+    %join;
+    %delay 5000, 0;
+    %fork TD_FSM_tb.display_state, S_0x11d00a050;
+    %join;
+    %delay 5000, 0;
+    %fork TD_FSM_tb.display_state, S_0x11d00a050;
+    %join;
+    %delay 5000, 0;
+    %fork TD_FSM_tb.display_state, S_0x11d00a050;
+    %join;
+    %delay 5000, 0;
+    %fork TD_FSM_tb.display_state, S_0x11d00a050;
+    %join;
+    %delay 5000, 0;
+    %fork TD_FSM_tb.display_state, S_0x11d00a050;
+    %join;
+    %vpi_call 2 89 "$display", "\012 READ til WRITE \012Forventet state lk: -------------------------------------| A_FSM: 1, B_FSM: 1" {0 0 0};
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x11d029360_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x11d0294c0_0, 0, 1;
+    %delay 5000, 0;
+    %fork TD_FSM_tb.display_state, S_0x11d00a050;
+    %join;
+    %delay 5000, 0;
+    %fork TD_FSM_tb.display_state, S_0x11d00a050;
+    %join;
+    %delay 5000, 0;
+    %fork TD_FSM_tb.display_state, S_0x11d00a050;
+    %join;
+    %delay 5000, 0;
+    %fork TD_FSM_tb.display_state, S_0x11d00a050;
+    %join;
+    %vpi_call 2 96 "$finish" {0 0 0};
+    %end;
+    .thread T_5;
+# The file index is used to find the file name in the following table.
+:file_names 5;
+    "N/A";
+    "<interactive>";
+    "FSM_tb.v";
+    "./FSM_v2.v";
+    "./D_flip_flop.v";
