@@ -1,4 +1,4 @@
-`include "FSM_v2.v"         // Include the FSM module
+`include "FSM_v3.v"         // Include the FSM module
 
 `timescale 1ns / 1ps
 
