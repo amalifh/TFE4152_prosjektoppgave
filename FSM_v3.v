@@ -1,5 +1,7 @@
 `include "D_flip_flop.v"
 
+//DENNE skal funke, har prøvd å shorte ned gates men det lar seg ikke gjøres uten å påvirke tb
+
 module FSM(
     input wire op,
     input wire selFSM,
@@ -14,29 +16,22 @@ module FSM(
     // Next state logic
     wire Aplus;
     wire Bplus;
+    wire notrw, notrwAndvalid, notvalid, notrwandvalidOrnotvalid;
 
-    // A+ logic
-    wire notSel, notB, AandnotB;
-    not(notSel, selFSM);
-    not(notB, B_FSM);
-    and(AandnotB, A_FSM, notB); // A and not B for maintaining IDLE
+    // A
+    not(notrw, rw);
+    and(notrwAndvalid, valid, notrw);
+    not(notvalid, valid);
+    or(notrwandvalidOrnotvalid, notvalid, notrwAndvalid);
 
-    wire selAndOp, notBAndNotSel;
-    and(selAndOp, selFSM, op);
-    and(notBAndNotSel, notB, notSel);
+    and(Aplus, notrwandvalidOrnotvalid, selFSM);
 
-    or(Aplus, AandnotB, selAndOp, notBAndNotSel);
+    // B
+    wire opAndnotrwandvalidOrnotvalid, rwAndvalid;
 
-    // B+ logic
-    wire notA, notAAndNotOp, AandOp;
-    not(notA, A_FSM);
-    and(notAAndNotOp, notA, ~op);
-    and(AandOp, A_FSM, op);
-
-    wire selFSMAndOpLogic, idleToReadLogic;
-    or(selFSMAndOpLogic, notAAndNotOp, AandOp);
-    and(idleToReadLogic, notA, B_FSM, ~op, selFSM);  // IDLE to READ condition
-    or(Bplus, selFSMAndOpLogic, idleToReadLogic);
+    and(opAndnotrwandvalidOrnotvalid, op, notrwandvalidOrnotvalid);
+    and(rwAndvalid, rw, valid);
+    or(Bplus, rwAndvalid, opAndnotrwandvalidOrnotvalid);
 
     // D flip-flops for state storage, clocked by `clk`
     D_flip_flop Astate (
@@ -52,7 +47,7 @@ module FSM(
     );
 
     // Output logic for `valid` and `rw`
-    buf(valid, B_FSM);       // `valid` is the same as `B_FSM`
-    xnor(rw, A_FSM, B_FSM);   // `rw` is high in WRITE and STABLE states
+    buf(valid, B_FSM);      // `valid` is the same as `B_FSM`
+    buf(rw, A_FSM);         // `rw` is the same as `A_FSM`
 
 endmodule
