@@ -1,74 +1,83 @@
 `include "bitcell_v2.v"
+
 // WORD MODUL //
 // 8 bits som tar inn hver sin wire i data_in og gir ut hver sin data_out. 
 // Hele ordet tar inn samme rw og sel signal
 
 module word8bit (
     input wire [7:0] data_in,  // 8-bit data input
-    input wire sel,            // select signal for all bitcells
+    input wire sel,            // Select signal for all bitcells
     input wire rw,             // Read/Write signal for all bitcells
     output wire [7:0] data_out // 8-bit data output
 );
 
-    // 8 bitceller indeksert fra 0 til 7
-    bitcell bit0 (
-        .data(data_in[0]),
-        .sel(sel),
-        .rw(rw),
-        .out(data_out[0])
-    );
+    // Internal wires to hold the output from each bitcell
+    wire [7:0] internal_data_out;
 
-    bitcell bit1 (
-        .data(data_in[1]),
-        .sel(sel),
-        .rw(rw),
-        .out(data_out[1])
-    );
+    //Logikk for active MUX
+    wire notrw, MUXsel, notMUXsel;
+    wire [7:0] MUXa; 
+    wire [7:0] MUXb;
 
-    bitcell bit2 (
-        .data(data_in[2]),
-        .sel(sel),
-        .rw(rw),
-        .out(data_out[2])
-    );
+    not(notrw, rw);
+    and(MUXsel, notrw, sel);
 
-    bitcell bit3 (
-        .data(data_in[3]),
-        .sel(sel),
-        .rw(rw),
-        .out(data_out[3])
-    );
+    not (notMUXsel, MUXsel);
 
-    bitcell bit4 (
-        .data(data_in[4]),
-        .sel(sel),
-        .rw(rw),
-        .out(data_out[4])
-    );
 
-    bitcell bit5 (
-        .data(data_in[5]),
-        .sel(sel),
-        .rw(rw),
-        .out(data_out[5])
-    );
+    // Instantiate 8 bitcell modules, each outputting to internal_data_out
+    bitcell bit0 (.data(data_in[0]), .sel(sel), .rw(rw), .out(internal_data_out[0]));
+    bitcell bit1 (.data(data_in[1]), .sel(sel), .rw(rw), .out(internal_data_out[1]));
+    bitcell bit2 (.data(data_in[2]), .sel(sel), .rw(rw), .out(internal_data_out[2]));
+    bitcell bit3 (.data(data_in[3]), .sel(sel), .rw(rw), .out(internal_data_out[3]));
+    bitcell bit4 (.data(data_in[4]), .sel(sel), .rw(rw), .out(internal_data_out[4]));
+    bitcell bit5 (.data(data_in[5]), .sel(sel), .rw(rw), .out(internal_data_out[5]));
+    bitcell bit6 (.data(data_in[6]), .sel(sel), .rw(rw), .out(internal_data_out[6]));
+    bitcell bit7 (.data(data_in[7]), .sel(sel), .rw(rw), .out(internal_data_out[7]));
 
-    bitcell bit6 (
-        .data(data_in[6]),
-        .sel(sel),
-        .rw(rw),
-        .out(data_out[6])
-    );
+    // MUX-like structure with gate-level logic for each bit of data_out
 
-    bitcell bit7 (
-        .data(data_in[7]),
-        .sel(sel),
-        .rw(rw),
-        .out(data_out[7])
-    );
+    // Bit 0
+    nand (MUXa[0], internal_data_out[0], rw);
+    nand (MUXb[0], data_in[0], notrw);
+    nand (data_out[0], MUXa[0], MUXb[0]);
+
+    // Bit 1
+    nand (MUXa[1], internal_data_out[1], rw);
+    nand (MUXb[1], data_in[1], notrw);
+    nand (data_out[1], MUXa[1], MUXb[1]);
+
+    // Bit 2
+    nand (MUXa[2], internal_data_out[2], rw);
+    nand (MUXb[2], data_in[2], notrw);
+    nand (data_out[2], MUXa[2], MUXb[2]);
+
+    // Bit 3
+    nand (MUXa[3], internal_data_out[3], rw);
+    nand (MUXb[3], data_in[3], notrw);
+    nand (data_out[3], MUXa[3], MUXb[3]);
+
+    // Bit 4
+    nand (MUXa[4], internal_data_out[4], rw);
+    nand (MUXb[4], data_in[4], notrw);
+    nand (data_out[4], MUXa[4], MUXb[4]);
+
+    // Bit 5
+    nand (MUXa[5], internal_data_out[5], rw);
+    nand (MUXb[5], data_in[5], notrw);
+    nand (data_out[5], MUXa[5], MUXb[5]);
+
+    // Bit 6
+    nand (MUXa[6], internal_data_out[6], rw);
+    nand (MUXb[6], data_in[6], notrw);
+    nand (data_out[6], MUXa[6], MUXb[6]);
+
+    // Bit 7
+    nand (MUXa[7], internal_data_out[7], rw);
+    nand (MUXb[7], data_in[7], notrw);
+    nand (data_out[7], MUXa[7], MUXb[7]);
 
 endmodule
-
 
 // INTERN DEKODER //
 // En 3 til 8 dekoder med select i hver AND-gate. 
@@ -105,6 +114,8 @@ module decoder3to8 (
     and (Z5, select, adr2, notadr1, adr0);
     and (Z6, select, adr2, adr1, notadr0);
     and (Z7, select, adr2, adr1, adr0);
+
+    
 endmodule
 
 
@@ -197,4 +208,6 @@ module memory8x8 (
         .data_out(data_out)
     );
 
+
 endmodule
+
