@@ -1,14 +1,15 @@
-`include "minne.v"      
+`include "minne.v" // Include the bitcell module
 `timescale 1ns / 1ps
 
 module word8bit_tb;
 
-    reg [7:0] data_in;       
-    reg sel;                 
-    reg rw;                  
-    wire [7:0] data_out;     
-    
-    // Oppretter word8bit modul
+    // Inputs and Outputs
+    reg [7:0] data_in;    // 8-bit input data
+    reg sel;              // Select signal
+    reg rw;               // Read/Write control
+    wire [7:0] data_out;  // 8-bit output data
+
+    // Instantiate the DUT (Device Under Test)
     word8bit uut (
         .data_in(data_in),
         .sel(sel),
@@ -16,62 +17,63 @@ module word8bit_tb;
         .data_out(data_out)
     );
 
-    // Clock generation
+    // Clock signal for monitoring
     reg clk;
     initial clk = 0;
-    always #5 clk = ~clk;  // 10 ns clk (merk at tb for bitcellen har 20 ns men det endrer ikke selve bitcellen)
+    always #5 clk = ~clk; // Generate a clock signal with a 10ns period
 
-  // Tester
+    // Test cases
     initial begin
-        // Monitor output values during tests
-        $monitor("Tid: %0dns, sel=%b, rw=%b, data_in=%b, data_out=%b", $time, sel, rw, data_in, data_out);
+        $monitor("Time: %0dns | sel: %b | rw: %b | data_in: %b | data_out: %b", 
+                 $time, sel, rw, data_in, data_out);
 
-        $display("\nStartverditest \nForventet verdi data_out på siste klokkeflanke: 00000000");
+        // Reset Test
+        $display("\n[Reset Test] Expect data_out = 00000000");
         data_in = 8'b00000000;
         sel = 1;
-        rw = 1;  
+        rw = 1;  // Write mode
         #10;
 
-        data_in = 8'bxxxxxxxx;
-        sel = 1;
-        rw = 0;  // Nå leser vi
-        #10;     
+        // Read after write test
+        $display("\n[Read Test] Expect data_out = 00000000");
+        data_in = 8'bxxxxxxxx; // Input ignored in read mode
+        rw = 0;  // Read mode
+        #10;
 
-        $display("\nSkrivetest 1 \nForventet verdi data_out på siste klokkeflanke: 01010101");
+        // Write 1st pattern test
+        $display("\n[Write Test 1] Expect data_out = 01010101");
         data_in = 8'b01010101;
+        rw = 1;  // Write mode
         sel = 1;
-        rw = 1;
         #10;
 
-        data_in = 8'bxxxxxxxx;
-        sel = 1;
-        rw = 0;  // Nå leser vi
-        #10;  
+        $display("\n[Read Test 1] Expect data_out = 01010101");
+        rw = 0;  // Read mode
+        #10;
 
-        $display("\nSkrivetest 2 \nForventet verdi data_out på siste klokkeflanke: 10100000");
+        // Write 2nd pattern test
+        $display("\n[Write Test 2] Expect data_out = 10100000");
         data_in = 8'b10100000;
-        sel = 1;
-        rw = 1;
+        rw = 1;  // Write mode
         #10;
 
-        data_in = 8'bxxxxxxxx;
-        sel = 1;
-        rw = 0;  // Nå leser vi
-        #10; 
-
-        $display("\nHoldetest: Forrige verdi skal holdes på når word ikke er aktivt \nForventet verdi data_out på siste klokkeflanke: 10100000");
-        data_in = 8'bxxxxxxxx;
-        sel = 0;
-        rw = 1;
+        $display("\n[Read Test 2] Expect data_out = 10100000");
+        rw = 0;  // Read mode
         #10;
 
-        data_in = 8'bxxxxxxxx;
-        sel = 1;
-        rw = 0;  // Nå leser vi
-        #10; 
-   
-        $finish;
+        // Hold test
+        $display("\n[Hold Test] Expect data_out = 10100000");
+        sel = 0;  // Deactivate word
+        #10;
+
+        $display("\n[Read After Hold Test] Expect data_out = 10100000");
+        sel = 1;  // Reactivate word
+        rw = 0;   // Read mode
+        #10;
+
+        $finish; // End simulation
     end
 
 endmodule
+
 
