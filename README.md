@@ -2,8 +2,9 @@
 A project with a goal to design and implement a system of 8x8 bit memory module for an IoT device.
 
 ## Contributors
-Amalie Fridfeldt Hauge
-Andrea Gladhaug
+Amalie Fridfeldt Hauge, 3rd year of Electronic System Design and Innovation
+
+Andrea Gladhaug, 3rd year of Electronic System Design and Innovation
 
 ### Terminal commands to run in Visual Studio code:
 
