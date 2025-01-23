@@ -5,8 +5,8 @@ A project with a goal to design and implement a system of 8x8 bit memory module 
 Amalie Fridfeldt Hauge
 Andrea Gladhaug
 
-### To run in Visual Studio code
-Terminal commands:
+### Terminal commands to run in Visual Studio code:
+
     Bitcell_tb
         Kompilere: iverilog -o bitcell_tb bitcell_tb.v
 
