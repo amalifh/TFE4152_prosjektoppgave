@@ -1,0 +1,32 @@
+Bitcellimplementation
+
+.include gate_lib.cir
+.include gpdk90nm_tt(1).cir
+
+.param VDD = 0.5
+.options temp=27
+*	.param length = 100n
+*.param width = 350n
+
+.subckt SRlatch S R Out1 Out2 VDD VSS
+x2NAND1 S node1 node2 VDD VSS 2inNAND
+x2NAND2 node2 R node1 VDD VSS 2inNAND
+.ends
+
+.subckt BitCell data sel rw output VDD VSS
+x3NAND1 data sel rw node3 VDD VSS 3inNAND
+x3NAND2 node3 sel rw node4 VDD VSS 3inNAND
+xSRlatch node3 node4 tempOut noCare VDD VSS SRlatch
+xnotInAnd rw outNot VDD VSS INVERTER
+x3NAND3 tempOut outNot sel almostOut VDD VSS 3inNAND
+xlastNot almostOut output VDD VSS INVERTER
+.ends
+
+V1 1 0 dc VDD
+V_select sel 0 pulse(0 VDD 5ns 0.1ns 0.1ns 2.9ns 15 ns)
+V_data data 0 pulse(0 VDD 20ns 0.1ns 0.1ns 10ns 50ns)
+V_rw rw 0 pulse(VDD 0 25ns 0.1ns 0.1ns 23ns 50ns)
+
+xBitCell data sel rw Y 1 0 BitCell
+.tran 10n 55n 20n
+.plot v(data) v(sel) v(tempY) v(rw) v(Y)

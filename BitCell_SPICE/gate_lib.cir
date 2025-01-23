@@ -1,0 +1,37 @@
+Gatelibrary
+
+length = 100n
+width = 350n
+
+*****Making the 2in NAND gate
+.subckt 2inNAND A B out1 VDD VSS
+*PMOS transistors
+T1 out1 A VDD VDD pmos l=length w=width
+T2 out1 B VDD VDD pmos l=length w=width
+*NMOS transistors
+T3 out1 A node VSS nmos l=length w=width
+T4 node B VSS VSS nmos l=length w=width
+.ends
+
+*****3in NAND gate*********
+.subckt 3inNAND C D E out2 VDD VSS
+N1 out2 C VDD VDD pmos l=length w=width
+N2 out2 D VDD VDD pmos l=length w=width
+N3 out2 E VDD VDD pmos l=length w=width
+
+*NMOS transistors
+N4 out2 C node1001 VSS nmos l=length w=width
+N5 node1001 D node1002 VSS nmos l=length w=width
+N6 node1002 E VSS VSS l=length w=width
+.ends
+
+
+******NOT GATE********
+.subckt INVERTER in out VDD VSS
+*PMOS 
+*navn drain gate source
+M1 out in VDD VDD pmos l=length w=width
+
+*NMOS
+M2 out in VSS VSS nmos l=length w=width
+.ends

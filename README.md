@@ -1,9 +1,11 @@
-# TFE4152_prosjektoppgave
-Prosjektoppgave i IC, med de besteste bestejentene Amalie og Andrea :)
+# TFE4152_project
+A project with a goal to design and implement a system of 8x8 bit memory module for an IoT device.
 
-Testbenchs: 
+## Contributors
+Amalie Fridfeldt Hauge
+Andrea Gladhaug
 
-
+### To run in Visual Studio code
 Terminal commands:
     Bitcell_tb
         Kompilere: iverilog -o bitcell_tb bitcell_tb.v
